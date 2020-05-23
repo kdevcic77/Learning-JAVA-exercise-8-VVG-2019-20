@@ -16,16 +16,19 @@
 						<Menu mnemonicParsing="false" text="Automobil">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaPretraguAutomobila" text="Pretraga" />
+                        <MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaUnosAutomobila" text="Unos" />
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="Stan">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaPretraguStanova" text="Pretraga" />
+                        <MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaUnosStana" text="Unos" />
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="Usluga">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaPretraguUsluga" text="Pretraga" />
+                        <MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaUnosUsluge" text="Unos" />
 							</items>
 						</Menu>
 					</items>
@@ -35,11 +38,13 @@
 						<Menu mnemonicParsing="false" onAction="#prikaziEkranZaPretraguPrivatnihKorisnika" text="Privatni korisnik">
 							<items>
 								<MenuItem mnemonicParsing="false" text="Pretraga" />
+                        <MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaUnosPrivatnogKorisnika" text="Unos" />
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="Poslovni korisnik">
 							<items>
 								<MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaPretraguPoslovnihKorisnika" text="Pretraga" />
+                        <MenuItem mnemonicParsing="false" onAction="#prikaziEkranZaUnosPoslovnogKorisnika" text="Unos" />
 							</items>
 						</Menu>
 					</items>

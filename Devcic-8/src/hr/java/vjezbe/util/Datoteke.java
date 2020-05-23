@@ -1,12 +1,17 @@
 package hr.java.vjezbe.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +44,7 @@ public class Datoteke {
 //    List<Prodaja> listaProdaja = new ArrayList<>();
 //
 //    listaArtikala = dohvatiArtikle();
-    
+
     public static List<Artikl> dohvatiArtikle() {
 
 	List<String> stringListaArtikala = new ArrayList<>();
@@ -136,6 +141,7 @@ public class Datoteke {
 	return listaArtikala;
 
     }
+
     public static List<Korisnik> dohvatiKorisnike() {
 	List<String> stringListaKorisnika = new ArrayList<>();
 	List<Korisnik> listaKorisnika = new ArrayList<>();
@@ -207,5 +213,107 @@ public class Datoteke {
 	    }
 	}
 	return listaKorisnika;
+    }
+
+    public static void zapisiUDatotekuArtikl(List<Artikl> listaArtikala) {
+	String tekst = "";
+	Artikl artikl = listaArtikala.get(listaArtikala.size() - 1);
+	if (artikl instanceof Automobil) {
+	    tekst += "\n2\n";
+	    tekst += artikl.getId().toString() + "\n";
+	    tekst += artikl.getNaslov() + "\n";
+	    tekst += artikl.getOpis() + "\n";
+	    tekst += ((Automobil) artikl).getSnagaKs().toString() + "\n";
+	    tekst += Stanje.fromStanje(artikl.getStanje()) + "\n";
+	    tekst += artikl.getCijena().toString();
+	    try (FileWriter artiklWritter = new FileWriter(FILE_ARTIKLI, true);
+		    PrintWriter out = new PrintWriter(new BufferedWriter(artiklWritter))) {
+		out.print(tekst);
+		List<String> listaLinijaKategorija = Files.readAllLines(Paths.get(FILE_KATEGORIJE),
+			StandardCharsets.UTF_8);
+		String stringIdArtikli=listaLinijaKategorija.get(2)+" "+artikl.getId().toString();
+		listaLinijaKategorija.set(2, stringIdArtikli);
+		Files.write(Paths.get(FILE_KATEGORIJE), listaLinijaKategorija, StandardCharsets.UTF_8);
+	    } catch (IOException e) {
+		System.err.println(e);
+	    }
+
+	}
+	if (artikl instanceof Stan) {
+	    tekst += "\n3\n";
+	    tekst += artikl.getId().toString() + "\n";
+	    tekst += artikl.getNaslov() + "\n";
+	    tekst += artikl.getOpis() + "\n";
+	    tekst += Integer.toString(((Stan) artikl).getKvadratura())+ "\n";
+	    tekst += Stanje.fromStanje(artikl.getStanje()) + "\n";
+	    tekst += artikl.getCijena().toString();
+	    try (FileWriter artiklWritter = new FileWriter(FILE_ARTIKLI, true);
+		    PrintWriter out = new PrintWriter(new BufferedWriter(artiklWritter))) {
+		out.print(tekst);
+		List<String> listaLinijaKategorija = Files.readAllLines(Paths.get(FILE_KATEGORIJE),
+			StandardCharsets.UTF_8);
+		String stringIdArtikli=listaLinijaKategorija.get(5)+" "+artikl.getId().toString();
+		listaLinijaKategorija.set(5, stringIdArtikli);
+		Files.write(Paths.get(FILE_KATEGORIJE), listaLinijaKategorija, StandardCharsets.UTF_8);
+	    } catch (IOException e) {
+		System.err.println(e);
+	    }
+
+	}
+	if (artikl instanceof Usluga) {
+	    tekst += "\n1\n";
+	    tekst += artikl.getId().toString() + "\n";
+	    tekst += artikl.getNaslov() + "\n";
+	    tekst += artikl.getOpis() + "\n";
+	    tekst += Stanje.fromStanje(artikl.getStanje()) + "\n";
+	    tekst += artikl.getCijena().toString();
+	    try (FileWriter artiklWritter = new FileWriter(FILE_ARTIKLI, true);
+		    PrintWriter out = new PrintWriter(new BufferedWriter(artiklWritter))) {
+		out.print(tekst);
+		List<String> listaLinijaKategorija = Files.readAllLines(Paths.get(FILE_KATEGORIJE),
+			StandardCharsets.UTF_8);
+		String stringIdArtikli=listaLinijaKategorija.get(8)+" "+artikl.getId().toString();
+		listaLinijaKategorija.set(8, stringIdArtikli);
+		Files.write(Paths.get(FILE_KATEGORIJE), listaLinijaKategorija, StandardCharsets.UTF_8);
+	    } catch (IOException e) {
+		System.err.println(e);
+	    }
+
+	}
+    }
+
+    public static void zapisiUDatotekuKorisnika(List<Korisnik> listaKorisnika) {
+	String tekst = "";
+	Korisnik korisnik = listaKorisnika.get(listaKorisnika.size() - 1);
+	if(korisnik instanceof PrivatniKorisnik) {
+	    tekst += "\n1\n";
+	    tekst += korisnik.getId().toString() + "\n";
+	    tekst += ((PrivatniKorisnik) korisnik).getIme() + "\n";
+	    tekst += ((PrivatniKorisnik) korisnik).getPrezime() + "\n";
+	    tekst += korisnik.getEmail() + "\n";
+	    tekst += korisnik.getTelefon();
+	    
+	    try (FileWriter korisniWritter = new FileWriter(FILE_KORISNICI, true);
+		    PrintWriter out = new PrintWriter(new BufferedWriter(korisniWritter))) {
+		out.print(tekst);
+	    } catch (IOException e) {
+		System.err.println(e);
+	    }
+	}
+	if(korisnik instanceof PoslovniKorisnik) {
+	    tekst += "\n2\n";
+	    tekst += korisnik.getId().toString() + "\n";
+	    tekst += ((PoslovniKorisnik) korisnik).getNaziv() + "\n";
+	    tekst += ((PoslovniKorisnik) korisnik).getWeb() + "\n";
+	    tekst += korisnik.getEmail() + "\n";
+	    tekst += korisnik.getTelefon();
+	    
+	    try (FileWriter korisnikWritter = new FileWriter(FILE_KORISNICI, true);
+		    PrintWriter out = new PrintWriter(new BufferedWriter(korisnikWritter))) {
+		out.print(tekst);
+	    } catch (IOException e) {
+		System.err.println(e);
+	    }
+	}
     }
 }

@@ -27,7 +27,7 @@ public class PretragaAutomobilaController {
     @FXML
     private Label opis;
     @FXML
-    private Label snakaKs;
+    private Label snagaKs;
     @FXML
     private Label cijena;
     @FXML

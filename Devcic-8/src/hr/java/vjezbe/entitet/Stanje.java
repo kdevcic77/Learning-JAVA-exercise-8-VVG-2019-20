@@ -20,4 +20,20 @@ public enum Stanje {
         }
         return null;
     }
+    
+    public static String fromStanje (Stanje stanje) {
+        switch(stanje) {
+        case novo:
+            return "1";
+        case izvrsno:
+           return "2";
+        case rabljeno:
+            return "3";
+        case neispravno:
+           return "4";
+        }
+	return null;
+	
+    }
+    
 }
